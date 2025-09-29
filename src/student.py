@@ -12,29 +12,26 @@ class Student:
         self._phone = phone_string 
 
     @staticmethod
-    def _validate_last_name(last_name):
-        if not isinstance(last_name, str) or not last_name.strip():
-            raise ValueError("Фамилия не может быть пустой.")
+    def _validate_name_part(value: str, full_name: str):
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f"{full_name} не может быть пустым.")
 
-        # Кириллица, первая буква заглавная, остальные строчные
-        if not re.fullmatch(r"[А-ЯЁ][а-яё]+", last_name):
-            raise ValueError("Фамилия должна быть на кириллице, начинаться с заглавной буквы и содержать только буквы.")
+        if not re.fullmatch(r"[А-ЯЁ][а-яё]+", value):
+            raise ValueError(f"{full_name} должно быть на кириллице, начинаться с заглавной буквы и содержать только буквы.")
+
+        return value
+
+    @staticmethod
+    def _validate_last_name(last_name):
+        return Student._validate_name_part(last_name, "Фамилия")
 
     @staticmethod
     def _validate_first_name(first_name):
-        if not isinstance(first_name, str) or not first_name.strip():
-            raise ValueError("Имя не может быть пустым.")
-
-        if not re.fullmatch(r"[А-ЯЁ][а-яё]+", first_name):
-            raise ValueError("Имя должно быть на кириллице, начинаться с заглавной буквы и содержать только буквы.")
+        return Student._validate_name_part(first_name, "Имя")
 
     @staticmethod
     def _validate_middle_name(middle_name):
-        if not isinstance(middle_name, str) or not middle_name.strip():
-            raise ValueError("Отчество не может быть пустым.")
-
-        if not re.fullmatch(r"[А-ЯЁ][а-яё]+", middle_name):
-            raise ValueError("Отчество должно быть на кириллице, начинаться с заглавной буквы и содержать только буквы.")
+        return Student._validate_name_part(middle_name, "Отчество")
 
     @staticmethod
     def _validate_address(address):
