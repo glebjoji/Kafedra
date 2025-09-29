@@ -65,7 +65,7 @@ class Student:
 
     @last_name.setter
     def last_name(self, value):
-        self._last_name = value
+        self._last_name = Student._validate_last_name(value)
 
     @property
     def first_name(self):
@@ -73,7 +73,7 @@ class Student:
 
     @first_name.setter
     def first_name(self, value):
-        self._first_name = value
+        self._first_name = Student._validate_first_name(value)
 
     @property
     def middle_name(self):
@@ -81,7 +81,7 @@ class Student:
 
     @middle_name.setter
     def middle_name(self, value):
-        self._middle_name = value
+        self._middle_name = Student._validate_middle_name(value)
 
     @property
     def address(self):
@@ -89,7 +89,7 @@ class Student:
 
     @address.setter
     def address(self, value):
-        self._address = value
+        self._address = Student._validate_address(value)
         
 #Геттер для номера телефона возвращает форматированный номер
     @property
