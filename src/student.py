@@ -1,3 +1,4 @@
+import json
 import phonenumbers
 import re
 
@@ -53,6 +54,34 @@ class Student:
             return parsed_phone
         except phonenumbers.NumberParseException:
             raise ValueError("Ошибка при разборе номера телефона. Проверьте формат.")
+    
+
+        # json и 
+    @classmethod
+    def from_string(cls, data_string: str):
+        parts = [p.strip() for p in data_string.split(',')]
+        if len(parts) != 6:
+            raise ValueError("Неверный формат строки. Ожидается 6 полей.")
+        
+        student_id, last_name, first_name, middle_name, address, phone_string = parts
+        return cls(int(student_id), last_name, first_name, middle_name, address, phone_string)
+
+    @classmethod
+    def from_json(cls, json_data):
+        if isinstance(json_data, str):
+            json_data = json.loads(json_data)
+
+        if not isinstance(json_data, dict):
+            raise TypeError("Ожидается словарь или JSON-строка.")
+
+        return cls(
+            json_data["student_id"],
+            json_data["last_name"],
+            json_data["first_name"],
+            json_data["middle_name"],
+            json_data["address"],
+            json_data["phone"]
+        )
     
 
     @property
