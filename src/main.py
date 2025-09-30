@@ -1,6 +1,5 @@
-from student_summary import StudentSummary
-from .student import Student
-import json
+from src.student_summary import StudentSummary
+from src.student import Student
 
 if __name__ == "__main__":
         s1 = Student(1, "Иванов", "Иван", "Иванович", "г. Москва, ул. Ленина, д. 10", "+79123456789")
@@ -16,6 +15,7 @@ if __name__ == "__main__":
         print("\nКраткая версия:")
         print(s1.short_info())
 
+        print("\nУпрощенная версия из summary:")
         print(summary)
 
         print("\nСравнение объектов:")
