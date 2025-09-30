@@ -1,3 +1,4 @@
+from student_summary import StudentSummary
 from .student import Student
 import json
 
@@ -8,10 +9,14 @@ if __name__ == "__main__":
 
         s2 = Student(2, "Иванов","Петр","Сергеевич","г. Москва, ул. Ленина, д. 5","+7 999 123 45 67" )
 
+        summary = StudentSummary(s2)
+
         print("Полная версия:")
         print(s1)
         print("\nКраткая версия:")
         print(s1.short_info())
+
+        print(summary)
 
         print("\nСравнение объектов:")
         print("s1 == s2 ?", s1 == s2)
