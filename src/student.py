@@ -6,11 +6,11 @@ class Student:
 
     def __init__(self, student_id, last_name, first_name, middle_name, address, phone_string):
         self._student_id = student_id
-        self._last_name = last_name
-        self._first_name = first_name
-        self._middle_name = middle_name
-        self._address = address
-        self._phone = phone_string 
+        self._last_name = Student._validate_last_name(last_name)
+        self._first_name = Student._validate_first_name(first_name)
+        self._middle_name = Student._validate_middle_name(middle_name)
+        self._address = Student._validate_address(address)
+        self._phone = Student._validate_phone(phone_string) 
 
     @staticmethod
     def _validate_name_part(value: str, full_name: str):
@@ -40,8 +40,10 @@ class Student:
             raise ValueError("Адрес должен быть непустой строкой.")
 
         # Требуем хотя бы одну букву кириллицы
-        if not re.search(r"[А-Яа-яЁё]", address):
+        if not re.search(r"[А-Яа-яЁё]+", address):
             raise ValueError("Адрес должен содержать хотя бы одну кириллическую букву.")
+        
+        return address
 
     @staticmethod
     def _validate_phone(phone_string):
@@ -128,3 +130,27 @@ class Student:
     @phone.setter
     def phone(self, value):
         self._phone = Student._validate_phone(value)
+
+    # Полная версия объекта
+    def __str__(self):
+        return (f"Студент #{self._student_id}\n"
+                f"Фамилия: {self._last_name}\n"
+                f"Имя: {self._first_name}\n"
+                f"Отчество: {self._middle_name}\n"
+                f"Адрес: {self._address}\n"
+                f"Телефон: {self.phone}")
+
+    # Краткая версия объекта
+    def short_info(self):
+        return f"{self._last_name} {self._first_name[0]}.{self._middle_name[0]}. ({self.phone})"
+
+    # Сравнение объектов
+    def __eq__(self, other):
+        if not isinstance(other, Student):
+            return NotImplemented
+        return (self._student_id == other._student_id and
+                self._last_name == other._last_name and
+                self._first_name == other._first_name and
+                self._middle_name == other._middle_name and
+                self._address == other._address and
+                self.phone == other.phone)
