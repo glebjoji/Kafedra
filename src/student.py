@@ -10,6 +10,7 @@ class Student(StudentBase):
         #2) Student("id, last, first, middle, address, phone")
         #3) Student('{"student_id":..., "last_name":..., "first_name":..., "middle_name":..., "address":..., "phone":...}')
 
+        
         #В1: обычный вызов 6 аргументов
         if len(args) == 6:
             student_id, last_name, first_name, middle_name, address, phone = args

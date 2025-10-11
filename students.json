@@ -1,0 +1,26 @@
+[
+    {
+        "student_id": 2,
+        "last_name": "Николаев",
+        "first_name": "Антон",
+        "middle_name": "Олегович",
+        "address": "г. Казань, ул. Пушкина, д. 7",
+        "phone": "+79990001122"
+    },
+    {
+        "student_id": 4,
+        "last_name": "Николаев",
+        "first_name": "Антон",
+        "middle_name": "Олегович",
+        "address": "г. Казань, ул. Пушкина, д. 7",
+        "phone": "+79990001122"
+    },
+    {
+        "student_id": 6,
+        "last_name": "Николаев",
+        "first_name": "Антон",
+        "middle_name": "Олегович",
+        "address": "г. Казань, ул. Пушкина, д. 7",
+        "phone": "+79990001122"
+    }
+]
