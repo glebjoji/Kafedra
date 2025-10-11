@@ -26,15 +26,12 @@ class DatabaseConnection:
         return cls._instance
 
     def get_connection(self):
-        """Возвращает текущее соединение."""
         return self._connection
 
     def get_cursor(self):
-        """Удобный способ получить курсор."""
         return self._connection.cursor()
 
     def close(self):
-        """Закрыть соединение."""
         if self._connection:
             self._connection.close()
             print("Соединение с базой данных закрыто")
