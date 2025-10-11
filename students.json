@@ -1,14 +1,22 @@
 [
     {
-        "student_id": 2,
-        "last_name": "Николаев",
-        "first_name": "Антон",
-        "middle_name": "Олегович",
-        "address": "г. Казань, ул. Пушкина, д. 7",
-        "phone": "+79990001122"
+        "student_id": 7,
+        "last_name": "Иванов",
+        "first_name": "Иван",
+        "middle_name": "Иванович",
+        "address": "Москва",
+        "phone": "+79111111111"
     },
     {
-        "student_id": 4,
+        "student_id": 9,
+        "last_name": "Иванов",
+        "first_name": "Иван",
+        "middle_name": "Иванович",
+        "address": "Москва",
+        "phone": "+79111111121"
+    },
+    {
+        "student_id": 5,
         "last_name": "Николаев",
         "first_name": "Антон",
         "middle_name": "Олегович",
@@ -21,6 +29,30 @@
         "first_name": "Антон",
         "middle_name": "Олегович",
         "address": "г. Казань, ул. Пушкина, д. 7",
-        "phone": "+79990001122"
+        "phone": "+79990021122"
+    },
+    {
+        "student_id": 8,
+        "last_name": "Петров",
+        "first_name": "Петр",
+        "middle_name": "Петрович",
+        "address": "Санкт-Петербург",
+        "phone": "+79222222222"
+    },
+    {
+        "student_id": 10,
+        "last_name": "Петров",
+        "first_name": "Петр",
+        "middle_name": "Петрович",
+        "address": "Санкт-Петербург",
+        "phone": "+79222292222"
+    },
+    {
+        "student_id": 1,
+        "last_name": "Сидоров",
+        "first_name": "Сидор",
+        "middle_name": "Сидорович",
+        "address": "Казань",
+        "phone": "+79333333333"
     }
 ]
