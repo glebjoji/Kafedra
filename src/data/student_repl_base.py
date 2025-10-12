@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.student import Student
+from src.core.student import Student
 
 
 class Student_repl_base(ABC):

@@ -1,7 +1,7 @@
 import yaml
 import os
-from src.student import Student
-from src.student_repl_base import Student_repl_base
+from src.core.student import Student
+from src.data.student_repl_base import Student_repl_base
 
 
 class Student_repl_yaml(Student_repl_base):

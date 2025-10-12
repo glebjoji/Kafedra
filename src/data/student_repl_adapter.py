@@ -1,6 +1,6 @@
-from src.student_repl_base import Student_repl_base
-from src.database_connection import DatabaseConnection
-from src.student import Student
+from src.data.student_repl_base import Student_repl_base
+from src.data.database_connection import DatabaseConnection
+from src.core.student import Student
 
 
 class Student_repl_db_adapter(Student_repl_base):

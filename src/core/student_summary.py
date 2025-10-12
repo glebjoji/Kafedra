@@ -1,4 +1,4 @@
-from src.student import Student
+from src.core.student import Student
 
 class StudentSummary(Student):
     def __init__(self, student: Student):

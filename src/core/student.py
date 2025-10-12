@@ -1,6 +1,6 @@
 import json
 import re
-from src.student_base import StudentBase
+from src.core.student_base import StudentBase
 
 
 class Student(StudentBase):
