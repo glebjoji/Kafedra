@@ -1,5 +1,11 @@
-import phonenumbers
+"""
+Модуль с базовым классом StudentBase.
+Содержит общие данные студента: ФИО и телефон с валидацией.
+"""
+
 import re
+
+import phonenumbers
 
 
 class StudentBase:
@@ -22,7 +28,7 @@ class StudentBase:
                 f"начинаться с заглавной буквы и содержать только буквы."
             )
         return value
-    
+
     @staticmethod
     def _validate_last_name(last_name):
         return StudentBase._validate_name_part(last_name, "Фамилия")
@@ -71,8 +77,10 @@ class StudentBase:
 
     @property
     def phone(self):
-        return phonenumbers.format_number(self._phone, phonenumbers.PhoneNumberFormat.E164)
- 
+        return phonenumbers.format_number(
+            self._phone, phonenumbers.PhoneNumberFormat.E164
+        )
+
     @phone.setter
     def phone(self, value):
         self._phone = StudentBase._validate_phone(value)

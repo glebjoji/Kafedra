@@ -1,4 +1,10 @@
+"""
+Модуль с классом StudentSummary.
+Создаёт краткую версию студента для быстрого вывода.
+"""
+
 from src.core.student import Student
+
 
 class StudentSummary(Student):
     def __init__(self, student: Student):
@@ -8,9 +14,8 @@ class StudentSummary(Student):
             student.first_name,
             student.middle_name,
             student.address,
-            student.phone
+            student.phone,
         )
-
 
     def __str__(self):
         return f"{self.last_name} {self.phone}"

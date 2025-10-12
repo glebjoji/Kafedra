@@ -1,10 +1,9 @@
-from src.data.student_repl_base import Student_repl_base
-from src.data.database_connection import DatabaseConnection
 from src.core.student import Student
+from src.data.database_connection import DatabaseConnection
+from src.data.student_repl_base import Student_repl_base
 
 
 class Student_repl_db_adapter(Student_repl_base):
-
 
     def __init__(self, db_connection: DatabaseConnection):
         super().__init__(filename=None)
@@ -20,19 +19,30 @@ class Student_repl_db_adapter(Student_repl_base):
         with self.db.get_cursor() as cur:
             cur.execute("TRUNCATE TABLE student RESTART IDENTITY CASCADE")
             for s in students:
-                cur.execute("""
+                cur.execute(
+                    """
                     INSERT INTO student (last_name, first_name, middle_name, address, phone)
                     VALUES (%s, %s, %s, %s, %s)
-                """, (s.last_name, s.first_name, s.middle_name, s.address, str(s.phone)))
+                """,
+                    (s.last_name, s.first_name, s.middle_name, s.address, str(s.phone)),
+                )
 
     def add_student(self, student):
         with self.db.get_cursor() as cur:
-            cur.execute("""
+            cur.execute(
+                """
                 INSERT INTO student (last_name, first_name, middle_name, address, phone)
                 VALUES (%s, %s, %s, %s, %s)
                 RETURNING student_id
-            """, (student.last_name, student.first_name, student.middle_name,
-                  student.address, str(student.phone)))
+            """,
+                (
+                    student.last_name,
+                    student.first_name,
+                    student.middle_name,
+                    student.address,
+                    str(student.phone),
+                ),
+            )
             return cur.fetchone()[0]
 
     def get_count(self):

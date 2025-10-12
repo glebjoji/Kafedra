@@ -1,5 +1,7 @@
-import yaml
 import os
+
+import yaml
+
 from src.core.student import Student
 from src.data.student_repl_base import Student_repl_base
 
@@ -19,13 +21,15 @@ class Student_repl_yaml(Student_repl_base):
     def write_all(self, students):
         data = []
         for s in students:
-            data.append({
-                "student_id": s.student_id,
-                "last_name": s.last_name,
-                "first_name": s.first_name,
-                "middle_name": s.middle_name,
-                "address": s.address,
-                "phone": s.phone
-            })
+            data.append(
+                {
+                    "student_id": s.student_id,
+                    "last_name": s.last_name,
+                    "first_name": s.first_name,
+                    "middle_name": s.middle_name,
+                    "address": s.address,
+                    "phone": s.phone,
+                }
+            )
         with open(self.filename, "w", encoding="utf-8") as f:
             yaml.dump(data, f, allow_unicode=True, sort_keys=False)
