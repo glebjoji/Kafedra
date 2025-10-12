@@ -1,27 +1,17 @@
-from src.data.student_repl_db import Student_repl_db
-from src.data.student_repl_db_decorator import Student_repl_db_decorator
+from src.data.student_repl_json import Student_repl_json
+from src.data.student_repl_file_decorator import Student_repl_file_decorator
 
-def main():
-    base_repo = Student_repl_db()
+repo = Student_repl_json("students.json")
 
-    filter_func = lambda s: s.last_name.startswith("И")
+decorator = Student_repl_file_decorator(
+    repo,
+    filter_func=lambda s: "Москва" in s.address,
+    sort_key=lambda s: s.last_name,
+    reverse=True
+)
 
-    sort_key = lambda s: s.first_name
+print("Студенты из Москвы (по фамилии, от Я к А):")
+for s in decorator.get_k_n_short_list(5, 1):
+    print(s)
 
-    # декорация репозитория
-    decorated_repo = Student_repl_db_decorator(
-        base_repo,
-        filter_func=filter_func,
-        sort_key=sort_key,
-        reverse=False
-    )
-
-    print(f"Всего студентов после фильтрации: {decorated_repo.get_count()}\n")
-
-    print("Первые 5 студентов (фильтр + сортировка):")
-    for s in decorated_repo.get_k_n_short_list(5, 1):
-        print(s)
-
-
-if __name__ == "__main__":
-    main()
+print(f"Количество студентов из Москвы: {decorator.get_count()}")
