@@ -18,6 +18,8 @@ black src/ && flake8 src/ && pylint src/
 
 3. для BD: 
 db_name="DB", user="postgres", password="1234", host="localhost", port=5432
+в коде находится src/data/student_repl_base.py
+необходимо заменить на свои парамметры
 
 4. для создания таблиц: 
 
