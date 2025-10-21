@@ -1,0 +1,7 @@
+phonenumbers
+flake8
+pylint
+black
+mypy
+psycopg2
+pyyaml

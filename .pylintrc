@@ -1,0 +1,16 @@
+[MASTER]
+ignore=.git,__pycache__,.venv,venv
+
+[MESSAGES CONTROL]
+disable=
+    C0111,  # отсутствующая строка документации
+    C0103,  # недопустимое имя
+    R0903,  # слишком мало публичных методов
+
+[FORMAT]
+max-line-length=120
+indent-string='    '
+
+[DESIGN]
+max-args=7
+max-attributes=10
