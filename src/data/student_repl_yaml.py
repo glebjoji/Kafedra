@@ -16,7 +16,17 @@ class Student_repl_yaml(Student_repl_base):
     def read_all(self):
         with open(self.filename, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or []
-        return [Student(str(item).replace("'", '"')) for item in data]
+        return [
+            Student(
+                item["student_id"],
+                item["last_name"],
+                item["first_name"],
+                item["middle_name"],
+                item["address"],
+                item["phone"],
+            )
+            for item in data
+        ]
 
     def write_all(self, students):
         data = []

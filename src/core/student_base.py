@@ -4,7 +4,6 @@
 """
 
 import re
-
 import phonenumbers
 
 
@@ -12,11 +11,17 @@ class StudentBase:
     # Класс с общими данными ФИО и телефон.
 
     def __init__(self, student_id, last_name, first_name, middle_name, phone_string):
-        self._student_id = student_id
+        self._student_id = self._validate_id(int(student_id))
         self._last_name = self._validate_name_part(last_name, "Фамилия")
         self._first_name = self._validate_name_part(first_name, "Имя")
         self._middle_name = self._validate_name_part(middle_name, "Отчество")
         self._phone = self._validate_phone(phone_string)
+
+    @staticmethod
+    def _validate_id(value: int) -> int:
+        if not isinstance(value, int) or value <= 0:
+            raise ValueError("ID студента должен быть положительным целым числом.")
+        return value
 
     @staticmethod
     def _validate_name_part(value: str, full_name: str):
@@ -84,3 +89,6 @@ class StudentBase:
     @phone.setter
     def phone(self, value):
         self._phone = StudentBase._validate_phone(value)
+
+    def _set_id(self, value: int):
+        self._student_id = self._validate_id(int(value))

@@ -40,7 +40,7 @@ class Student_repl_base(ABC):
     def add_student(self, student: Student):
         students = self.read_all()
         new_id = max([s.student_id for s in students], default=0) + 1
-        student._student_id = new_id
+        student._set_id(new_id)
         students.append(student)
         self.write_all(students)
         return new_id
@@ -49,7 +49,7 @@ class Student_repl_base(ABC):
         students = self.read_all()
         for i, s in enumerate(students):
             if s.student_id == student_id:
-                new_student._student_id = student_id
+                new_student._set_id(student_id)
                 students[i] = new_student
                 self.write_all(students)
                 return True

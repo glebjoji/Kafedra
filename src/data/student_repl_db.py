@@ -51,7 +51,8 @@ class Student_repl_db(Student_repl_base):
                 (k, offset),
             )
             rows = cur.fetchall()
-            return [Student(*row) for row in rows]
+            return [Student(*row).short_info() for row in rows]
+
 
     def add_student(self, student):
         with self.db.get_cursor() as cur:

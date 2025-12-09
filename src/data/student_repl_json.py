@@ -15,9 +15,18 @@ class Student_repl_json(Student_repl_base):
 
     def read_all(self):
         with open(self.filename, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            # Распаковка
-        return [Student(json.dumps(obj, ensure_ascii=False)) for obj in data]
+            data = json.load(f) or []
+        return [
+            Student(
+                item["student_id"],
+                item["last_name"],
+                item["first_name"],
+                item["middle_name"],
+                item["address"],
+                item["phone"],
+            )
+            for item in data
+        ]
 
     def write_all(self, students):
         data = []
