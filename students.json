@@ -54,5 +54,13 @@
         "middle_name": "Сидорович",
         "address": "Казань",
         "phone": "+79333333333"
+    },
+    {
+        "student_id": 11,
+        "last_name": "Сидорова",
+        "first_name": "Мария",
+        "middle_name": "Александровна",
+        "address": "1ф",
+        "phone": "+79565829309"
     }
 ]

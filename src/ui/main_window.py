@@ -1,11 +1,12 @@
 """
 Модуль с главным окном приложения (View слоя MVC).
-Таблица краткой информации о студентах.
+Добавлена кнопка "Добавить студента".
 """
 
 import tkinter as tk
 from tkinter import ttk
 from typing import List
+
 
 class MainWindow:
     
@@ -34,7 +35,7 @@ class MainWindow:
         
         header_label = tk.Label(
             header_frame, 
-            text="Студенты", 
+            text="📚 Студенты", 
             font=('Arial', 22, 'bold'),
             bg='#f8fbff', fg='#2c3e50'
         )
@@ -68,16 +69,25 @@ class MainWindow:
         btn_frame = tk.Frame(self.root, bg='#f8fbff')
         btn_frame.pack(pady=20)
         
-        details_btn = tk.Button(
+        tk.Button(
+            btn_frame,
+            text="Добавить",
+            font=('Arial', 12, 'bold'),
+            bg='#27ae60', fg='white',
+            relief='flat', width=12, height=20,
+            cursor='hand2',
+            command=lambda: self.controller.on_add_student_requested()
+        ).pack(side=tk.LEFT, padx=5)
+        
+        tk.Button(
             btn_frame,
             text="Подробности",
             font=('Arial', 12, 'bold'),
             bg='#3498db', fg='white',
-            relief='flat', padx=30, pady=8,
+            relief='flat', width=12, height=20,
             cursor='hand2',
             command=lambda: self.controller.on_details_requested()
-        )
-        details_btn.pack()
+        ).pack(side=tk.LEFT, padx=5)
 
     def refresh_table(self, data: List[str]):
         for item in self.tree.get_children():

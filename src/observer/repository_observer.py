@@ -4,6 +4,8 @@
 
 from typing import Callable, List
 from src.data.student_repl_base import Student_repl_base
+from src.core.student import Student
+
 
 class RepositoryObserver:
     
@@ -25,9 +27,10 @@ class RepositoryObserver:
     def fetch_short_list(self, k: int, n: int) -> List[str]:
         return self.repo.get_k_n_short_list(k, n)
     
-    def fetch_student_by_short_info(self, short_info: str):
+    def fetch_student_by_short_info(self, short_info: str) -> Student | None:
         all_students = self.repo.read_all()
         for student in all_students:
             if student.short_info() == short_info:
                 return student
         return None
+
