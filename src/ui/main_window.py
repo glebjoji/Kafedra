@@ -1,10 +1,11 @@
 """
 Модуль с главным окном приложения (View слоя MVC).
-Добавлена кнопка "Редактировать".
+Добавлена кнопка "Удалить" с подтверждением удаления.
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import List
+
 
 class MainWindow:
     
@@ -64,6 +65,7 @@ class MainWindow:
         table_frame.grid_rowconfigure(0, weight=1)
         table_frame.grid_columnconfigure(0, weight=1)
 
+        # Кнопки управления
         btn_frame = tk.Frame(self.root, bg='#f8fbff')
         btn_frame.pack(pady=20)
         
@@ -79,12 +81,22 @@ class MainWindow:
         
         tk.Button(
             btn_frame,
-            text="Редактировать",  
+            text="Редактировать",
             font=('Arial', 12, 'bold'),
             bg='#f39c12', fg='white',
-            relief='flat', width=14, height=1,
+            relief='flat', width=12, height=1,
             cursor='hand2',
             command=lambda: self.controller.on_edit_student_requested()
+        ).pack(side=tk.LEFT, padx=5)
+        
+        tk.Button(
+            btn_frame,
+            text="Удалить", 
+            font=('Arial', 12, 'bold'),
+            bg='#e74c3c', fg='white',
+            relief='flat', width=12, height=1,
+            cursor='hand2',
+            command=lambda: self.controller.on_delete_student_requested()
         ).pack(side=tk.LEFT, padx=5)
         
         tk.Button(
@@ -110,11 +122,23 @@ class MainWindow:
             return item['values'][0]
         return None
     
-    def show_warning(self, message):
+    def show_warning(self, message: str):
         messagebox.showwarning("Предупреждение", message, parent=self.root)
     
-    def show_error(self, message):
+    def show_error(self, message: str):
         messagebox.showerror("Ошибка", message, parent=self.root)
+    
+    def show_success(self, message: str):
+        messagebox.showinfo("Успех", message, parent=self.root)
+    
+    def show_delete_confirmation(self, message: str) -> bool:
+        result = messagebox.askyesno(
+            title="Подтверждение удаления",
+            message=message,
+            icon='warning',
+            parent=self.root
+        )
+        return result
     
     def run(self):
         self.root.mainloop()

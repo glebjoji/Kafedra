@@ -1,13 +1,5 @@
 [
     {
-        "student_id": 7,
-        "last_name": "Иванов",
-        "first_name": "Иван",
-        "middle_name": "Иванович",
-        "address": "Москва",
-        "phone": "+79111111115"
-    },
-    {
         "student_id": 9,
         "last_name": "Иванов",
         "first_name": "Иван",
