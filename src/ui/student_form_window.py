@@ -1,34 +1,36 @@
 """
-Модуль с окном редактирования студента (View слоя MVC).
-Только UI, вся логика в контроллере.
+Модуль с универсальным окном формы студента (View слоя MVC).
+Используется как для добавления, так и для редактирования студента.
+Только UI, вся логика в контроллерах.
 """
 import tkinter as tk
 from tkinter import messagebox
 
-class EditStudentWindow:
-    
-    def __init__(self, controller, student):
+
+class StudentFormWindow:
+
+    def __init__(self, controller, title: str, student=None):
         self.controller = controller
         self.student = student
+        self.is_edit_mode = student is not None
         
         self.root = tk.Toplevel()
-        self.root.title(f"Редактировать студента #{student.student_id}")
+        self.root.title(title)
         self.root.geometry("500x450")
         self.root.resizable(False, False)
         self.root.configure(bg='#f8fbff')
         self.root.transient(controller.main_controller.main_view.root)
         self.root.grab_set()
         
-        self.setup_ui()
-        self.populate_fields()
+        self.setup_ui(title)
     
-    def setup_ui(self):
+    def setup_ui(self, title: str):
         header_frame = tk.Frame(self.root, bg='#f8fbff')
         header_frame.pack(fill=tk.X, pady=(20, 15))
         
         tk.Label(
             header_frame,
-            text=f"Редактирование студента #{self.student.student_id}",
+            text=title,
             font=('Arial', 16, 'bold'),
             bg='#f8fbff', fg='#2c3e50'
         ).pack()
@@ -54,7 +56,7 @@ class EditStudentWindow:
                 bg='#f8fbff', fg='#2c3e50',
                 anchor='w'
             ).grid(row=i, column=0, sticky='w', pady=8)
-
+            
             entry = tk.Entry(
                 form_frame,
                 font=('Arial', 11),
@@ -67,16 +69,17 @@ class EditStudentWindow:
             self.entries[field_name] = entry
         
         form_frame.columnconfigure(1, weight=1)
-        
-        # Кнопки управления
+
         btn_frame = tk.Frame(self.root, bg='#f8fbff')
         btn_frame.pack(pady=20)
+        
+        save_btn_color = '#3498db' if self.is_edit_mode else '#27ae60'
         
         tk.Button(
             btn_frame,
             text="Сохранить",
             font=('Arial', 12, 'bold'),
-            bg='#3498db', fg='white',
+            bg=save_btn_color, fg='white',
             relief='flat', padx=30, pady=8,
             cursor='hand2',
             command=lambda: self.controller.on_save_clicked()
@@ -92,27 +95,49 @@ class EditStudentWindow:
             command=lambda: self.controller.on_cancel_clicked()
         ).pack(side=tk.LEFT, padx=5)
     
-    def populate_fields(self):
-        self.entries["last_name"].insert(0, self.student.last_name)
-        self.entries["first_name"].insert(0, self.student.first_name)
-        self.entries["middle_name"].insert(0, self.student.middle_name)
-        self.entries["address"].insert(0, self.student.address)
-        self.entries["phone"].insert(0, self.student.phone)
+    def set_field_value(self, field_name: str, value: str):
+        if field_name in self.entries:
+            entry = self.entries[field_name]
+            entry.delete(0, tk.END)
+            entry.insert(0, value)
+            entry.config(fg='black')  
     
-    def get_form_data(self):
-        """
-        Получить данные из формы
-        :return: словарь с данными формы
-        """
+    def set_placeholder(self, field_name: str, placeholder: str):
+        if field_name in self.entries:
+            entry = self.entries[field_name]
+            entry.insert(0, placeholder)
+            entry.config(fg='grey')
+            
+            # обработчики для placeholder
+            entry.bind(
+                '<FocusIn>',
+                lambda e, ent=entry, ph=placeholder: self._on_focus_in(ent, ph)
+            )
+            entry.bind(
+                '<FocusOut>',
+                lambda e, ent=entry, ph=placeholder: self._on_focus_out(ent, ph)
+            )
+    
+    def _on_focus_in(self, entry, placeholder):
+        if entry.get() == placeholder:
+            entry.delete(0, tk.END)
+            entry.config(fg='black')
+    
+    def _on_focus_out(self, entry, placeholder):
+        if not entry.get():
+            entry.insert(0, placeholder)
+            entry.config(fg='grey')
+    
+    def get_form_data(self) -> dict:
         data = {}
         for field_name, entry in self.entries.items():
             data[field_name] = entry.get().strip()
         return data
     
-    def show_error(self, message):
+    def show_error(self, message: str):
         messagebox.showerror("Ошибка", message, parent=self.root)
     
-    def show_success(self, message):
+    def show_success(self, message: str):
         messagebox.showinfo("Успех", message, parent=self.root)
     
     def close(self):
