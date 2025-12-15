@@ -1,12 +1,10 @@
 """
 Модуль с главным окном приложения (View слоя MVC).
-Добавлена кнопка "Добавить студента".
+Добавлена кнопка "Редактировать".
 """
-
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from typing import List
-
 
 class MainWindow:
     
@@ -16,7 +14,7 @@ class MainWindow:
         self.root.title("Студенты")
         self.root.geometry("950x650")
         self.root.minsize(600, 300)
-        self.root.configure(bg='#f8fbff')  
+        self.root.configure(bg='#f8fbff')
         self.setup_styles()
         self.setup_ui()
     
@@ -40,7 +38,7 @@ class MainWindow:
             bg='#f8fbff', fg='#2c3e50'
         )
         header_label.pack()
-        
+
         table_frame = tk.Frame(self.root, bg='#f8fbff')
         table_frame.pack(fill=tk.BOTH, expand=True, padx=25, pady=10)
         
@@ -65,7 +63,7 @@ class MainWindow:
         
         table_frame.grid_rowconfigure(0, weight=1)
         table_frame.grid_columnconfigure(0, weight=1)
-        
+
         btn_frame = tk.Frame(self.root, bg='#f8fbff')
         btn_frame.pack(pady=20)
         
@@ -74,9 +72,19 @@ class MainWindow:
             text="Добавить",
             font=('Arial', 12, 'bold'),
             bg='#27ae60', fg='white',
-            relief='flat', width=12, height=20,
+            relief='flat', width=12, height=1,
             cursor='hand2',
             command=lambda: self.controller.on_add_student_requested()
+        ).pack(side=tk.LEFT, padx=5)
+        
+        tk.Button(
+            btn_frame,
+            text="Редактировать",  
+            font=('Arial', 12, 'bold'),
+            bg='#f39c12', fg='white',
+            relief='flat', width=14, height=1,
+            cursor='hand2',
+            command=lambda: self.controller.on_edit_student_requested()
         ).pack(side=tk.LEFT, padx=5)
         
         tk.Button(
@@ -84,7 +92,7 @@ class MainWindow:
             text="Подробности",
             font=('Arial', 12, 'bold'),
             bg='#3498db', fg='white',
-            relief='flat', width=12, height=20,
+            relief='flat', width=12, height=1,
             cursor='hand2',
             command=lambda: self.controller.on_details_requested()
         ).pack(side=tk.LEFT, padx=5)
@@ -101,6 +109,12 @@ class MainWindow:
             item = self.tree.item(selection[0])
             return item['values'][0]
         return None
+    
+    def show_warning(self, message):
+        messagebox.showwarning("Предупреждение", message, parent=self.root)
+    
+    def show_error(self, message):
+        messagebox.showerror("Ошибка", message, parent=self.root)
     
     def run(self):
         self.root.mainloop()
