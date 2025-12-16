@@ -1,6 +1,6 @@
 """
 Модуль с главным окном приложения (View слоя MVC).
-Добавлена кнопка "Удалить" с подтверждением удаления.
+Добавлена кнопка "сортировать по фамилии".
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -89,6 +89,16 @@ class MainWindow:
             command=lambda: self.controller.on_edit_student_requested()
         ).pack(side=tk.LEFT, padx=5)
         
+        tk.Button(
+            btn_frame,
+            text="Сортировать по фамилии",
+            font=('Arial', 12, 'bold'),
+            bg='#8e44ad', fg='white',
+            relief='flat', width=20, height=1,
+            cursor='hand2',
+            command=lambda: self.controller.on_sort_by_last_name_requested()
+        ).pack(side=tk.LEFT, padx=5)
+
         tk.Button(
             btn_frame,
             text="Удалить", 

@@ -101,5 +101,15 @@ class MainController:
             except Exception as e:
                 self.main_view.show_error(f"Ошибка при удалении: {e}")
     
+    def on_sort_by_last_name_requested(self):
+        try:
+            # сортируем в репозитории
+            self.repo.sort_by_last_name()
+            # обновление данных в таблице через observer
+            self.load_data()
+            self.main_view.show_success("Список студентов отсортирован по фамилии")
+        except Exception as e:
+            self.main_view.show_error(f"Ошибка при сортировке: {e}")
+
     def run(self):
         self.main_view.run()
